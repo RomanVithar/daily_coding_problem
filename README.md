@@ -1,33 +1,24 @@
 # Решение задачек из daily coding problem
 
 ## Условие
-Given a list of numbers and a number k, return whether any two numbers from
- the list add up to k.
+Given an array of integers, return a new array such that
+ each element at index i of the new array is the product 
+ of all the numbers in the original array except the one at i.
 
-For example, given [10, 15, 3, 7] and k of 17, return true since 10 + 7 is 17.
+For example, if our input was [1, 2, 3, 4, 5], the expected
+ output would be [120, 60, 40, 30, 24]. If our input was 
+ [3, 2, 1], the expected output would be [2, 3, 6].
 
-Bonus: Can you do this in one pass?
+Follow-up: what if you can't use division?
 
 ## Пояснения к решению
 
- - Список сортироуется по возрастанию
- 
- [10, 15, 3, 7] -> [3, 7, 10, 15]
- 
- - Выполняется цикл, где сравнивается элемент под первым индексом и последним
- 
-    - если сумма чисел больше необходимой, то надо уменьшить сумму и больший 
-    индекс для сравнения сдвигается влево
-    - если сумма чисел меньше необходимой, то надо увеличить суммму и меньший
-    индекс для сравнения сдвигается вправо
-    - если сумма чисел даёт необходимую сумму, то мы выходим из цикла и возвращаем
-    true
- - Выходим из цикла если индекс коненого и начального элемента равны и возвращаем
-   false
+- находится произведение всех элементов
+
+- проходим по всем элементам массива и делим произведение на каждый и записываем в эту ячейку
    
 ## Сложность алгоритма
-Быстрая сортировка  - nlogn
-Проход по циклу - n
+n + n = 2n
 
-Итог: nlogn
+Итог: n
  
