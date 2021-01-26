@@ -1,24 +1,57 @@
 # Решение задачек из daily coding problem
 
 ## Условие
-Given an array of integers, return a new array such that
- each element at index i of the new array is the product 
- of all the numbers in the original array except the one at i.
+Good morning! Here's your coding interview problem for today.
 
-For example, if our input was [1, 2, 3, 4, 5], the expected
- output would be [120, 60, 40, 30, 24]. If our input was 
- [3, 2, 1], the expected output would be [2, 3, 6].
+This problem was asked by Google.
 
-Follow-up: what if you can't use division?
+Given the root to a binary tree, implement serialize(root), which serializes the tree into a string, and deserialize(s), which deserializes the string back into the tree.
+
+For example, given the following Node class
+
+```
+    class Node:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+```
+The following test should pass:
+
+``` 
+    node = Node('root', Node('left', Node('left.left')), Node('right'))
+    assert deserialize(serialize(node)).left.left.val == 'left.left'
+```
 
 ## Пояснения к решению
+Реализованно 2 варианта решения.
 
-- находится произведение всех элементов
-
-- проходим по всем элементам массива и делим произведение на каждый и записываем в эту ячейку
+ 1. Используя jackson
+ 
+ 2. С ручной записью информации в файл и её парсинг
+ 
+ Первый вариант не представляет из себя ничего особенного, реализованна 
+ сериализация с помощью библиотеки jackson-databind
+ 
+ Второй вариант реализован следующим образом:
+ 
+ Сериализация: Идёт обход дерева в глубину и информация об объекте, который
+ хранится и в потомках записывается в строку по следующей схеме
+ 
+    root{left{left.left{null;null};null};right{null;null}} 
+    
+  Название{левый потомок; правый потомок}
+  
+  Десериализация: С помощью регулярного выражения находится название
+  левый потом и правый потомок. Левый и правый потом передаётся в рек
+  урсивную процедуру. А название записывается в объект. 
+  
+  В десериализации, есть второе регулярное выражение в начале 
+  рекурсивной процедуры, нужно оно, чтобы определить строку 
+  типа называние{null;null}
+  
+  Использовал я это так как не смог сделать с помощью одного 
+  регулярного выражения.
    
 ## Сложность алгоритма
-n + n = 2n
-
-Итог: n
  
