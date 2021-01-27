@@ -1,57 +1,31 @@
 # Решение задачек из daily coding problem
 
 ## Условие
-Good morning! Here's your coding interview problem for today.
+Given an array of integers, find the first missing positive integer
+ in linear time and constant space. In other words, find the lowest 
+ positive integer that does not exist in the array. The array can 
+ contain duplicates and negative numbers as well.
 
-This problem was asked by Google.
-
-Given the root to a binary tree, implement serialize(root), which serializes the tree into a string, and deserialize(s), which deserializes the string back into the tree.
-
-For example, given the following Node class
-
-```
-    class Node:
-    def __init__(self, val, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-```
-The following test should pass:
-
-``` 
-    node = Node('root', Node('left', Node('left.left')), Node('right'))
-    assert deserialize(serialize(node)).left.left.val == 'left.left'
-```
+For example, the input [3, 4, -1, 1] should give 2. 
+The input [1, 2, 0] should give 3.
 
 ## Пояснения к решению
-Реализованно 2 варианта решения.
-
- 1. Используя jackson
+ - Разделил массив таким образом чтобы слева были положительные числа
+ а справа отрицательные.
  
- 2. С ручной записью информации в файл и её парсинг
+ - Потом использовал каждый элемент положительной части массива как 
+ индекс элемента в том же массиве который будет обозначать есть
+ ли этот элемент в массиве или нет.
+ Для экономии памяти использую отрицательность числа как способ 
+ хранения информации типа true or false.
  
- Первый вариант не представляет из себя ничего особенного, реализованна 
- сериализация с помощью библиотеки jackson-databind
+ - Прохожу ещё раз по положительной части массива и как только
+ сталкиваюсь с положительным числом, что указывает на то, что
+ этого числа нет в последовательности вывожу его.
  
- Второй вариант реализован следующим образом:
- 
- Сериализация: Идёт обход дерева в глубину и информация об объекте, который
- хранится и в потомках записывается в строку по следующей схеме
- 
-    root{left{left.left{null;null};null};right{null;null}} 
-    
-  Название{левый потомок; правый потомок}
-  
-  Десериализация: С помощью регулярного выражения находится название
-  левый потом и правый потомок. Левый и правый потом передаётся в рек
-  урсивную процедуру. А название записывается в объект. 
-  
-  В десериализации, есть второе регулярное выражение в начале 
-  рекурсивной процедуры, нужно оно, чтобы определить строку 
-  типа называние{null;null}
-  
-  Использовал я это так как не смог сделать с помощью одного 
-  регулярного выражения.
+ - Если такого элемента не оказалось вывожу size+1, где 
+ size это длина положительной части.
    
 ## Сложность алгоритма
- 
+ время - O(n);
+ память - O(1);
