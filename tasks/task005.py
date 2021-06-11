@@ -7,7 +7,7 @@ def cons(a, b):
 def func_turn_left(a, b):
     return a
 
-
+    
 def func_turn_right(a, b):
     return b
 
